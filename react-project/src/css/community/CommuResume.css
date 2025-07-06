@@ -1,0 +1,125 @@
+.CommuResume .resume-banner img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.CommuResume .resume-banner h1 {
+  position: absolute;
+  top: 120px;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-weight: 900;
+}
+
+.CommuResume .resume-template-wrapper {
+  margin: auto;
+  width: 1200px;
+}
+
+.CommuResume .resume-template-wrapper h2 {
+  margin-left: 100px;
+}
+
+.CommuResume .resume-template-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; 
+  justify-content: flex-start;
+  justify-content: center;
+  min-width: 1000px;
+}
+.CommuResume .template-slide {
+  flex: 0 0 auto;
+  width: 280px;      
+  height: 300px; 
+  border: 1px solid #ccc;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.CommuResume .resume-template-data {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background: #fff;
+  border: 1px solid #ccc;
+  width: 280px;
+}
+
+.CommuResume .resume-template-data table {
+  width: 100%;
+  line-height: 0px;
+  font-size: smaller;
+}
+
+.CommuResume .resume-template-data table thead {
+  font-weight: bold;
+}
+
+.CommuResume .resume-template-data table td {
+  border: none;
+}
+.CommuResume .resume-template-data table .right {
+  text-align: end;
+  width: 140px;
+}
+
+.CommuResume .resume-template-preview-image {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.CommuResume .community-notice-pagination {
+  margin-bottom: 100px;
+  border-top: none;
+}
+
+.CommuResume .template-view-wrapper {
+  position: relative;
+}
+
+.CommuResume .template-view-wrapper:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+
+/* 아이콘에 마우스 올렸을 때는 hover 막기 */
+.CommuResume .template-view-wrapper.no-hover:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  cursor: default !important;
+}
+
+.CommuResume .like-count {
+  position: absolute;
+  top: 3px;
+  left: 30px;
+  color: #000;
+  font-weight: bold;
+  z-index: 10;
+}
+
+.CommuResume .likeIcon {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 10;
+}
+
+.CommuResume .likeIcon:hover {
+  transform: scale(1.3);
+}
+
+
+.CommuResume .resume-template-preview-image {
+  pointer-events: none;
+}

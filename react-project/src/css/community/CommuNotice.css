@@ -1,0 +1,263 @@
+.community-notice-container {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+}
+.community-notice-container
+ .community-notice-wrapper{
+  min-width: 1200px; 
+  padding: 0 16px; 
+  box-sizing: border-box;
+}
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid black;
+}
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-category
+ .community-notice-tap {
+  height: 60px;
+  display: flex;
+ }
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-category
+ .community-notice-tap ul{
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  padding-left: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-category
+ .community-notice-tap ul li{
+  height: 100%;
+}
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-category
+ .community-notice-search {
+  display: flex;
+  justify-content: flex-end;  
+  margin: 16px 0;
+}
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-category
+ .community-notice-search
+ .community-notice-search-container{
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  width: 100%;
+  max-width: 360px; /* 필요에 따라 조정 */
+  background-color: #fff;
+  box-sizing: border-box;
+}
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-category
+ .community-notice-search
+ .community-notice-search-container 
+ .community-notice-search-select{
+  flex: none;
+  padding: 0 12px;
+  height: 36px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  border-right: 1px solid #ccc;
+}
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-category
+ .community-notice-search
+ .community-notice-search-container 
+ .community-notice-search-select:focus{
+  outline: none;
+  box-shadow: none;
+}
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-category
+ .community-notice-search
+ .community-notice-search-container 
+ input {
+  flex: 1;
+  height: 36px;
+  padding: 0 12px;
+  border: none;
+  font-size: 14px;
+  outline: none;
+}
+.community-notice-search-btn {
+  flex: none;
+  width: 40px;
+  height: 36px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.community-notice-search-btn:hover {
+  background-color: #f0f0f0;
+}
+.community-notice-search-icon {
+  margin-right: 5px;
+}
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-section
+ .community-notice-head {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 16px 0 16px;
+  border-top: 2px solid black;
+  border-bottom: 1px solid black;
+}
+.community-notice-container
+ .community-notice-wrapper  
+ .community-notice-section
+ .community-notice-body ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-section
+ .community-notice-body
+ ul
+ li
+ a {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%; 
+  border-bottom: 1px solid rgb(230, 230, 230);
+}
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-section
+ .community-notice-body
+ ul
+ li
+ a:hover {
+  background: rgb(230, 243, 249)
+}
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-section
+ .community-notice-head
+ .notice-head-col{
+ text-align: center; 
+}
+.community-notice-container 
+  .community-notice-wrapper 
+  .community-notice-section 
+  .community-notice-body 
+  .notice-body-col {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0 8px;
+  font-size: 14px;
+}
+.community-notice-container 
+  .community-notice-wrapper 
+  .community-notice-section 
+  .community-notice-body 
+  .title {
+    box-sizing: border-box;
+    padding-left: 100px; 
+}
+.community-notice-container .community-notice-wrapper .community-notice-section .community-notice-head .num,
+.community-notice-container .community-notice-wrapper .community-notice-section .community-notice-body .num{
+  width: 10%;
+  justify-content: center;
+  text-align: center;
+}
+.community-notice-container .community-notice-wrapper .community-notice-section .community-notice-head .title,
+.community-notice-container .community-notice-wrapper .community-notice-section .community-notice-body .title{
+  width: 70%;
+}
+.community-notice-container .community-notice-wrapper .community-notice-section .community-notice-head .write,
+.community-notice-container .community-notice-wrapper .community-notice-section .community-notice-body .write{
+  width: 10%;
+  justify-content: center;
+  text-align: center;
+}
+.community-notice-container .community-notice-wrapper .community-notice-section .community-notice-head .author,
+.community-notice-container .community-notice-wrapper .community-notice-section .community-notice-body .author{
+  width: 10%;
+  justify-content: center;
+  text-align: center;
+}
+.community-notice-pagination {
+  border-top: 2px solid black;
+}
+
+/* 중요 공지 배경 스타일 */
+.notice-priority {
+  background-color: #cce0ff; 
+}
+
+/* 버튼 스타일 정의 */
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-category
+ .community-notice-tap
+ ul li button {
+  height: 100%;
+  display: flex;
+  padding: 0 20px;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  border: none;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  background-color: transparent;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* hover 효과 */
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-category
+ .community-notice-tap
+ ul li button:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* 활성화된 탭 스타일 */
+.community-notice-container
+ .community-notice-wrapper
+ .community-notice-category
+ .community-notice-tap
+ ul li button.active {
+  font-weight: bold;
+  color: #1f78ff;
+  background-color: transparent;
+}

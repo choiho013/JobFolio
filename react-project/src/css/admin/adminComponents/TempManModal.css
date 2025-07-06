@@ -1,0 +1,157 @@
+/* TempMantempManModal.css */
+
+/* 모달 오버레이 스타일 */
+
+.man-modal-overlay {
+  position: fixed; /* 화면에 고정 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex; /* 자식 요소를 가운데 정렬하기 위해 flex 사용 */
+  align-items: center; /* 세로 가운데 정렬 */
+  justify-content: center; /* 가로 가운데 정렬 */
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은색 배경 */
+  backdrop-filter: blur(5px); /* 배경 블러 처리 (지원하지 않는 브라우저에서는 무시됨) */
+  z-index: 50; /* 다른 요소들 위에 표시 */
+
+  opacity: 0; /* 기본적으로 투명하게 (숨김) */
+  pointer-events: none; /* 클릭 이벤트 비활성화 */
+  transition: opacity 0.3s ease-out; /* 투명도 변화에 애니메이션 적용 */
+}
+
+/* 모달이 보일 때 적용되는 스타일 */
+
+.man-modal-overlay.man-modal-overlay--visible {
+  opacity: 1; /* 완전히 보이게 */
+  pointer-events: auto; /* 클릭 이벤트 활성화 */
+}
+
+/* 모달 컨텐츠(프레임) 스타일 */
+.man-modal-content {
+  position: relative; /* 닫기 버튼 위치 지정을 위해 */
+  background-color: #1b1b22; /* 어두운 배경색 */
+  border-radius: 0.75rem; /* 둥근 모서리 (xl: 1rem = 16px) */
+  padding: 2.5rem 1.25rem; /* 상하 40px, 좌우 20px */
+  /* 미디어 쿼리 사용하여 반응형 패딩 적용 (md: 10px, py-[60px]) */
+  /* xl: rounded-2xl (더 둥근 모서리) */
+  width: 900px;
+  overflow: auto; /* 내용이 많아지면 스크롤 가능 */
+}
+
+/* 모달 닫기 버튼 (X) 스타일 */
+.man-modal-close-button {
+  position: absolute; /* 모달 컨텐츠 기준 위치 지정 */
+  top: 1rem; /* 위에서 16px */
+  right: 1rem; /* 오른쪽에서 16px */
+  margin-left: auto; /* 필요 없음, absolute로 위치 지정 */
+  color: white; /* 텍스트 색상 */
+  font-size: 1.5rem; /* 폰트 크기 */
+  font-weight: bold; /* 볼드체 */
+  background: none; /* 배경 없음 */
+  border: none; /* 테두리 없음 */
+  cursor: pointer; /* 마우스 오버 시 포인터 변경 */
+  padding: 0.5rem; /* 클릭 영역 확보 */
+  line-height: 1; /* 텍스트 정렬 */
+}
+
+
+.man-modal-template{
+    margin-bottom: 1rem; /* 각 입력 그룹 하단 여백 */
+}
+
+.man-modal-label {
+  display: block; /* 라벨을 블록 레벨로 만들어 다음 요소가 아래로 내려오게 함 */
+  margin-bottom: 0.5rem; /* 라벨과 입력 필드 사이의 여백 */
+  font-weight: bold; /* 라벨 텍스트 굵게 */
+  color: #e0e0e0; /* 라벨 색상 */
+}
+
+.man-modal-input-field,
+.man-modal-textarea-field{
+  width: 100%; /* 너비를 부모 요소에 꽉 채움 */
+  padding: 0.75rem; /* 내부 패딩 */
+  border: 1px solid #444; /* 테두리 */
+  border-radius: 0.25rem; /* 둥근 모서리 */
+  background-color: #2c2c34; /* 입력 필드 배경색 */
+  color: #f0f0f0; /* 입력 텍스트 색상 */
+  font-size: 1rem; /* 폰트 크기 */
+  box-sizing: border-box; /* 패딩과 테두리를 너비에 포함 */
+  /* 브라우저 자동 완성 스타일 오버라이드 */
+  /* 배경색을 다시 설정하고, 그림자를 제거하여 브라우저의 기본 자동 완성 스타일을 무효화 */
+  -webkit-box-shadow: 0 0 0px 1000px #2c2c34 inset; /* 배경색을 강제로 설정 (inset으로 내부 그림자처럼) */
+  -webkit-text-fill-color: #f0f0f0; /* 입력 텍스트 색상을 강제로 설정 */
+  transition: background-color 5000s ease-in-out 0s; /* 자동 완성 시 색상 변경 애니메이션 제거 */
+}
+
+
+.man-modal-input-field::placeholder,
+.man-modal-textarea-field::placeholder {
+  color: #888; /* 플레이스홀더 텍스트 색상 */
+}
+
+.man-modal-input-field:focus,
+.man-modal-textarea-field:focus {
+  outline: none; /* 포커스 시 기본 아웃라인 제거 */
+  border-color: #6a8cff; /* 포커스 시 테두리 색상 변경 */
+  box-shadow: 0 0 0 2px rgba(106, 140, 255, 0.5); /* 포커스 시 그림자 효과 */
+  background-color: #2c2c34; /* 포커스 시에도 배경색 유지 */
+}
+
+/* 텍스트 에어리어 높이 조절 */
+.man-modal-textarea-field {
+  resize: vertical; /* 세로로만 크기 조절 가능 */
+  min-height: 100px; /* 최소 높이 */
+}
+.man-modal-btn-container{
+  display: flex;
+}
+
+.man-modal-btn-container .man-modal-btn-save{
+ 
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border-color:#e0e0e0;
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  /* ✅ 추가된 위치 조정용 속성 */
+  align-self: center;
+  margin-left: auto;
+}
+
+.man-modal-btn-container .man-modal-btn-cancel{
+padding: 8px 14px;
+  font-size: 0.9rem;
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  /* ✅ 추가된 위치 조정용 속성 */
+  align-self: center;
+  margin-left: 5px;
+}
+
+.man-modal-btn-cancel:hover{
+   background-color: #b9b9b9;
+}
+
+.man-modal-btn-save:hover{
+  background-color: #b9b9b9;
+}
+
+.man-modal-title{
+  margin-bottom: 10px;
+  font-size: 30px;
+  color: #e0e0e0;
+  text-align : center;
+}
