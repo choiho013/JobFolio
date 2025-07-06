@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.happyjob.jobfolio.repository.resume.ResumeMapper">
+
+	<select id="selectResumeInfo"
+			parameterType="Map"
+			resultType="com.happyjob.jobfolio.vo.resume.ResumeInfoVO">
+		SELECT
+			resume_no,
+			user_no,
+			title,
+			desired_position,
+			template_no,
+			resume_file_name,
+			resume_file_pypath,
+			resume_file_lopath,
+			publication_yn,
+			create_date
+		FROM tb_resume_info
+		WHERE user_no = #{user_no}
+		  and status_yn = 'N'
+		ORDER BY resume_no DESC
+			LIMIT #{offset}, #{limit}
+	</select>
+
+	<!-- 관리자는 모든 정보 가져오는 쿼리 -->
+	<select id="adminSelectResumeInfo"
+			parameterType="Map"
+			resultType="com.happyjob.jobfolio.vo.resume.ResumeInfoVO">
+		SELECT
+		resume_no,
+		user_no,
+		(SELECT user_name
+		FROM tb_userinfo u
+		WHERE u.user_no = r.user_no
+		AND u.status_yn = 'N')AS user_name,
+		title,
+		desired_position,
+		template_no,
+		resume_file_name,
+		resume_file_pypath,
+		resume_file_lopath,
+		(SELECT count(*)
+		FROM tb_resume_like l
+		WHERE l.resume_no = r.resume_no)AS like_count,
+		publication_yn,
+		create_date,
+		status_yn
+		FROM tb_resume_info r
+		WHERE 1 = 1
+
+		<if test="searchField != null and search != null and search != ''">
+			<choose>
+				<when test="searchField == 'title'">
+					AND title LIKE CONCAT('%', #{search}, '%')
+				</when>
+				<when test="searchField == 'user_name'">
+					AND EXISTS (
+					SELECT 1
+					FROM tb_userinfo u
+					WHERE u.user_no = r.user_no
+					AND u.status_yn = 'N'
+					AND u.user_name LIKE CONCAT('%', #{search}, '%')
+					)
+				</when>
+				<when test="searchField == 'resume_no'">
+					AND resume_no = #{search}
+				</when>
+			</choose>
+		</if>
+
+		<choose>
+			<when test="sortType == 'like'">
+				ORDER BY like_count DESC, resume_no DESC
+			</when>
+			<otherwise>
+				ORDER BY resume_no DESC
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<select id="selectResumeCount"
+			parameterType="Map"
+			resultType="int">
+		SELECT
+			COUNT(*)
+		FROM tb_resume_info
+		WHERE user_no = #{user_no}
+		  and status_yn = 'N'
+	</select>
+
+	<select id="communityResumeList"
+			parameterType="map"
+			resultType="com.happyjob.jobfolio.vo.resume.ResumeInfoVO">
+		SELECT
+			resume_no,
+			user_no,
+			(SELECT user_name
+			 FROM tb_userinfo u
+			 WHERE u.user_no = r.user_no
+			   AND u.status_yn = 'N')AS user_name,
+			title,
+			desired_position,
+			template_no,
+			resume_file_name,
+			resume_file_pypath,
+			resume_file_lopath,
+			publication_yn,
+			create_date,
+			(SELECT count(*)
+			 FROM tb_resume_like l
+			 WHERE l.user_no = #{user_no}
+			   AND l.resume_no = r.resume_no)AS resume_liked,
+			(SELECT count(*)
+			 FROM tb_resume_like l
+			 WHERE l.resume_no = r.resume_no)AS like_count
+		FROM tb_resume_info r
+		WHERE status_yn = 'N' and publication_yn = 'Y'
+		ORDER BY like_count DESC, create_date DESC
+	</select>
+
+
+	<insert id="insertResumeInfo"
+			parameterType="com.happyjob.jobfolio.vo.resume.ResumeInfoVO">
+		INSERT INTO tb_resume_info (
+			user_no,
+			title,
+			desired_position,
+			template_no,
+			resume_file_name,
+			resume_file_pypath,
+			resume_file_lopath,
+		    status_yn,
+		    publication_yn,
+			create_date
+		) VALUES (
+					 #{user_no},
+					 #{title},
+					 #{desired_position},
+					 #{template_no},
+					 #{resume_file_name},
+					 #{resume_file_pypath},
+					 #{resume_file_lopath},
+		             'N',
+		          	 #{publication_yn},
+					 NOW()
+				 )
+	</insert>
+
+	<update id="deleteResume"
+			parameterType="int">
+		UPDATE tb_resume_info
+		SET status_yn = 'Y'
+		WHERE resume_no = #{resume_no};
+	</update>
+
+	<!-- 관리자페이지 이력서 공개여부 Y/N -->
+	<update id="updateResumeStatus" parameterType="com.happyjob.jobfolio.vo.resume.ResumeInfoVO">
+		UPDATE tb_resume_info
+		SET publication_yn = #{publication_yn}
+		WHERE resume_no = #{resume_no}
+	</update>
+
+	<!-- 관리자페이지 이력서 삭제 (data 삭제) -->
+	<delete id="deleteSelectedResume" parameterType="java.util.List">
+		DELETE FROM tb_resume_info
+		WHERE resume_no IN
+		<foreach item="id" collection="list" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="selectLinkInfoByResume"
+			parameterType="int"
+			resultType="com.happyjob.jobfolio.vo.resume.LinkInfoVO">
+		SELECT
+			resume_no,
+			link_name,
+			link_url
+		FROM tb_link_info
+		WHERE resume_no = #{resume_no}
+	</select>
+
+	<insert id="likeResume" parameterType="map">
+		INSERT INTO tb_resume_like (resume_no, user_no)
+		VALUES (#{resume_no}, #{user_no})
+	</insert>
+
+	<delete id="unlikeResume"
+			parameterType="int">
+		DELETE FROM tb_resume_like WHERE resume_no = #{resume_no} AND user_no = #{user_no}
+	</delete>
+
+	<insert id="insertLinkInfo"
+			parameterType="com.happyjob.jobfolio.vo.resume.LinkInfoVO">
+		INSERT INTO tb_link_info (
+			resume_no,
+			link_name,
+			link_url
+		) VALUES (
+					 #{resume_no},
+					 #{link_name},
+					 #{link_url}
+				 )
+	</insert>
+
+	<select id="selectResumeLikeByResume"
+			parameterType="int"
+			resultType="int">
+		SELECT
+			count(*)
+		FROM tb_resume_like
+		WHERE resume_no = #{resume_no}
+	</select>
+
+	<insert id="insertResumeLike"
+			parameterType="com.happyjob.jobfolio.vo.resume.ResumeLikeVO">
+		INSERT INTO tb_resume_like (
+			user_no,
+			resume_no
+		) VALUES (
+					 #{user_no},
+					 #{resume_no}
+				 )
+	</insert>
+
+	<select id="selectAllTemplates"
+			resultType="com.happyjob.jobfolio.vo.resume.TemplateVO">
+		SELECT
+			template_no,
+			template_name,
+			file_pypath,
+			file_lopath
+		FROM tb_template
+		ORDER BY template_no
+	</select>
+
+	<select id="selectTemplateByNum"
+			parameterType="int"
+			resultType="com.happyjob.jobfolio.vo.resume.TemplateVO">
+		SELECT
+			template_no,
+			template_name,
+			file_pypath,
+			file_lopath
+		FROM tb_template
+		where template_no=#{template_no}
+	</select>
+
+	<insert id="insertTemplate"
+			parameterType="com.happyjob.jobfolio.vo.resume.TemplateVO">
+		INSERT INTO tb_template (
+			template_no,
+			template_name,
+			file_pypath,
+			file_lopath
+		) VALUES (
+					 #{template_no},
+					 #{template_name},
+					 #{file_pypath},
+					 #{file_lopath}
+				 )
+	</insert>
+
+	<select id="getUserByUserNo"
+			parameterType="long"
+			resultType="com.happyjob.jobfolio.vo.join.UserVO">
+		SELECT
+			user_no,
+			login_id,
+			user_type,
+			user_name,
+			password,
+			birthday,
+			sex,
+			hp,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s')    AS reg_date,
+			DATE_FORMAT(withdrawal_date, '%Y-%m-%d %H:%i:%s') AS withdrawal_date,
+			status_yn,
+			expire_days,
+			address,
+			hobby,
+			notes
+		FROM tb_userinfo
+		WHERE user_no = #{user_no}
+		  AND status_yn = 'N'
+		  AND withdrawal_date IS NULL
+	</select>
+
+	<!-- 목록 조회 (페이징) -->
+	<select id="selectPagedNormalBoardList" resultType="com.happyjob.jobfolio.vo.resume.ResumeInfoVO" parameterType="map">
+		SELECT *
+		FROM
+		tb_resume_info
+		WHERE
+		status_yn = 'N'
+		AND
+		publication_yn = 'Y'
+	</select>
+
+	<!-- 총 개수 조회 -->
+	<select id="selectNormalBoardTotalCount" resultType="int" parameterType="map">
+		SELECT COUNT(*)
+		FROM tb_resume_info
+		WHERE status_yn = 'N'
+	</select>
+
+<!--	전체 스킬 그룹코드 조회-->
+	<select id="getSkillGroupCode" resultType="String">
+		SELECT
+		    group_code
+		FROM
+		    tb_group_code
+		WHERE
+		    category_code = 'industry'
+	</select>
+
+
+	<select id="getSkillDetailCode" resultType="String" parameterType="map">
+		SELECT
+		    detail_name as DETAIL_CODE
+		FROM
+		    tb_detail_code
+		WHERE
+		    group_code = #{group_code}
+	</select>
+
+
+
+<!--	<select id="selectSkillInfoList"-->
+<!--		parameterType="int"-->
+<!--		resultType="com.happyjob.jobfolio.vo.resume.SkillInfoVO">-->
+<!--		select *-->
+<!--		from tb_skill-->
+<!--		where user_no = #{user_no};-->
+<!--	</select>-->
+
+	<!--  마이페이지 좋아요 수	-->
+	<select id="selectLikeCount"
+			parameterType="Map"
+			resultType="int">
+		SELECT
+			COUNT(*)
+		FROM tb_resume_like
+		WHERE user_no = #{user_no}
+	</select>
+
+	<select id="resumeLikedList"
+			parameterType="Map"
+			resultType="com.happyjob.jobfolio.vo.resume.ResumeInfoVO">
+		SELECT
+			resume_no,
+			user_no,
+			title,
+			desired_position,
+			template_no,
+			resume_file_name,
+			resume_file_pypath,
+			resume_file_lopath,
+			create_date,
+			(SELECT count(*)
+			 FROM tb_resume_like l
+			 WHERE l.resume_no = r.resume_no)AS like_count
+		FROM tb_resume_info r
+		WHERE resume_no in (select resume_no from tb_resume_like where user_no = #{user_no})
+		ORDER BY resume_no DESC
+			LIMIT #{offset}, #{limit}
+	</select>
+
+
+	<insert id="insertTemplateInfo"
+			parameterType="com.happyjob.jobfolio.vo.resume.TemplateVO">
+		INSERT INTO tb_template (
+			template_name,
+			file_pypath,
+			file_lopath
+		) VALUES (
+		          	 #{template_name},
+					 #{file_pypath},
+					 #{file_lopath}
+				 )
+	</insert>
+
+	<update id="updateTemplateInfo" parameterType="map">
+		UPDATE tb_template
+		SET template_name = #{title}
+		WHERE template_no = #{template_no}
+	</update>
+
+
+	<select id="getTemplateFilePathByTemplateNo" parameterType="int" resultType="String">
+		SELECT
+			file_pypath
+		FROM tb_template
+		WHERE template_no = #{template_no}
+	</select>
+
+	<delete id="deleteTemplateInfo" parameterType="int">
+		DELETE FROM tb_template
+		WHERE template_no = #{template_no}
+	</delete>
+
+</mapper>

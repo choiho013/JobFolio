@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper
+        PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+        'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='com.happyjob.jobfolio.repository.community.CommunityMapper'>
+    <!-- 고정글 조회 -->
+    <select id="selectPriorityBoardList" parameterType="map" resultType="com.happyjob.jobfolio.vo.community.CommunityBoardVo">
+        SELECT b.board_no    AS boardNo
+        , b.board_type  AS boardType
+        , b.title
+        , b.content
+        , b.write_date  AS writeDate
+        , b.author
+        , u.user_name   AS authorName
+        , b.priority
+        , b.status_yn   AS statusYn
+        FROM tb_board b
+        JOIN tb_userinfo u ON b.author = u.user_no
+        WHERE b.board_type = #{boardType}
+        AND b.priority   != 0
+        <if test="statusYn != null and statusYn != ''">
+            AND b.status_yn = #{statusYn}
+        </if>
+        <!-- 검색 필터 -->
+        <if test="search != null and search != ''">
+            <choose>
+                <when test="searchCategory == 'title'">
+                    AND b.title LIKE CONCAT('%', #{search}, '%')
+                </when>
+                <when test="searchCategory == 'content'">
+                    AND b.content LIKE CONCAT('%', #{search}, '%')
+                </when>
+                <otherwise>
+                    AND (b.title LIKE CONCAT('%', #{search}, '%') OR b.content LIKE CONCAT('%', #{search}, '%'))
+                </otherwise>
+            </choose>
+        </if>
+        ORDER BY b.priority DESC, b.write_date DESC
+    </select>
+
+    <!-- 일반글 조회 -->
+    <select id="selectNormalBoardPaged" parameterType="map" resultType="com.happyjob.jobfolio.vo.community.CommunityBoardVo">
+        SELECT b.board_no    AS boardNo
+        , b.board_type  AS boardType
+        , b.title
+        , b.content
+        , b.write_date  AS writeDate
+        , b.author
+        , u.user_name   AS authorName
+        , b.priority
+        , b.status_yn   AS statusYn
+        FROM tb_board b
+        JOIN tb_userinfo u ON b.author = u.user_no
+        WHERE b.board_type = #{boardType}
+        AND b.priority   = 0
+        <!-- 검색 필터 -->
+        <if test="search != null and search != ''">
+            <choose>
+                <when test="searchCategory == 'title'">
+                    AND b.title LIKE CONCAT('%', #{search}, '%')
+                </when>
+                <when test="searchCategory == 'content'">
+                    AND b.content LIKE CONCAT('%', #{search}, '%')
+                </when>
+                <otherwise>
+                    AND (b.title LIKE CONCAT('%', #{search}, '%') OR b.content LIKE CONCAT('%', #{search}, '%'))
+                </otherwise>
+            </choose>
+        </if>
+        <if test="statusYn != null and statusYn != ''">
+            AND b.status_yn = #{statusYn}
+        </if>
+        ORDER BY b.write_date DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!-- 일반글 총 개수 -->
+    <select id="countNormalBoardList" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM tb_board
+        WHERE board_type = #{boardType}
+        AND priority   = 0
+        <!-- 검색 필터 -->
+        <if test="search != null and search != ''">
+            <choose>
+                <when test="searchCategory == 'title'">
+                    AND title LIKE CONCAT('%', #{search}, '%')
+                </when>
+                <when test="searchCategory == 'content'">
+                    AND content LIKE CONCAT('%', #{search}, '%')
+                </when>
+                <otherwise>
+                    AND (title LIKE CONCAT('%', #{search}, '%') OR content LIKE CONCAT('%', #{search}, '%'))
+                </otherwise>
+            </choose>
+        </if>
+        <if test="statusYn != null and statusYn != ''">
+            AND status_yn = #{statusYn}
+        </if>
+    </select>
+
+    <!-- 공지사항 내용 조회 -->
+    <select id="selectBoardDetail" parameterType="int" resultType="com.happyjob.jobfolio.vo.community.CommunityBoardVo">
+        SELECT
+            b.board_no AS boardNo,
+            b.board_type AS boardType,
+            b.title,
+            b.content,
+            b.write_date AS writeDate,
+            b.author,
+            u.user_name AS authorName,
+            b.priority,
+            b.status_yn AS statusYn
+        FROM tb_board b
+                 JOIN tb_userinfo u ON b.author = u.user_no
+        WHERE b.board_no = #{boardNo}
+    </select>
+
+    <!-- 이전 글 조회 -->
+    <select id="selectPreviousPost"
+            parameterType="map"
+            resultType="com.happyjob.jobfolio.vo.community.CommunityBoardVo">
+        SELECT
+        b.board_no AS boardNo,
+        b.board_type AS boardType,
+        b.title,
+        b.content,
+        b.write_date AS writeDate,
+        b.author,
+        u.user_name AS authorName,
+        b.priority,
+        b.status_yn AS statusYn
+        FROM tb_board b
+        JOIN tb_userinfo u ON b.author = u.user_no
+        WHERE b.board_type = 'N'
+        AND b.priority = 0
+        AND b.board_no &lt; #{boardNo}
+        <if test="statusYn != null">
+            AND b.status_yn = #{statusYn}
+        </if>
+        ORDER BY b.board_no DESC
+        LIMIT 1
+    </select>
+
+    <!-- 다음 글 조회 -->
+    <select id="selectNextPost"
+            parameterType="map"
+            resultType="com.happyjob.jobfolio.vo.community.CommunityBoardVo">
+        SELECT
+        b.board_no AS boardNo,
+        b.board_type AS boardType,
+        b.title,
+        b.content,
+        b.write_date AS writeDate,
+        b.author,
+        u.user_name AS authorName,
+        b.priority,
+        b.status_yn AS statusYn
+        FROM tb_board b
+        JOIN tb_userinfo u ON b.author = u.user_no
+        WHERE b.board_type = 'N'
+        AND b.priority = 0
+        AND b.board_no &gt; #{boardNo}
+        <if test="statusYn != null">
+            AND b.status_yn = #{statusYn}
+        </if>
+        ORDER BY b.board_no ASC
+        LIMIT 1
+    </select>
+</mapper>

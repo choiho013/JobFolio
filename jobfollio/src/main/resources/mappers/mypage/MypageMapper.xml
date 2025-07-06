@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.happyjob.jobfolio.repository.mypage.MypageMapper">
+    <resultMap id="careerDtoResultMap" type="com.happyjob.jobfolio.vo.mypage.CareerAllDto">
+        <id property="user_no" column="U_USER_NO"/>
+        <result property="hobby" column="U_HOBBY"/>
+        <result property="notes" column="U_NOTES"/>
+    </resultMap>
+    <resultMap id="eduInfoResultMap" type="com.happyjob.jobfolio.vo.mypage.EduInfoVO">
+        <id property="edu_no" column="E_EDU_NO"/>
+        <result property="user_no" column="E_USER_NO"/>
+        <result property="school_name" column="E_SCHOOL_NAME"/>
+        <result property="enroll_date" column="E_ENROLL_DATE"/>
+        <result property="grad_date" column="E_GRAD_DATE"/>
+        <result property="edu_status" column="E_EDU_STATUS"/>
+        <result property="major" column="E_MAJOR"/>
+        <result property="sub_major" column="E_SUB_MAJOR"/>
+        <result property="gpa" column="E_GPA"/>
+        <result property="notes" column="E_NOTES"/>
+    </resultMap>
+    <resultMap id="languageSkillResultMap" type="com.happyjob.jobfolio.vo.mypage.LanguageSkillVO">
+        <id property="user_no" column="L_USER_NO"/>
+        <id property="language" column="L_LANGUAGE"/>
+        <result property="level" column="L_LEVEL"/>
+    </resultMap>
+    <resultMap id="skillResultMap" type="com.happyjob.jobfolio.vo.mypage.SkillVO">
+        <id property="user_no" column="S_USER_NO"/>
+        <result property="exp_level" column="S_EXP_LEVEL"/>
+        <result property="skill_code" column="S_SKILL_CODE"/>
+        <result property="skill_tool" column="S_SKILL_TOOL"/>
+        <result property="group_code" column="S_GROUP_CODE"/>
+    </resultMap>
+    <resultMap id="certificateResultMap" type="com.happyjob.jobfolio.vo.mypage.CertificateVO">
+        <id property="certification_no" column="C_CERTIFICATION_NO"/>
+        <result property="user_no" column="C_USER_NO"/>
+        <result property="certificate_no" column="C_CERTIFICATE_NO"/>
+        <result property="certificate_name" column="C_CERTIFICATE_NAME"/>
+        <result property="issuing_org" column="C_ISSUING_ORG"/>
+        <result property="acquired_date" column="C_ACQUIRED_DATE"/>
+        <result property="notes" column="C_NOTES"/>
+    </resultMap>
+    <resultMap id="careerHistoryResultMap" type="com.happyjob.jobfolio.vo.mypage.CareerHistoryVO">
+        <id property="career_no" column="H_CAREER_NO"/>
+        <result property="user_no" column="H_USER_NO"/>
+        <result property="company_name" column="H_COMPANY_NAME"/>
+        <result property="start_date" column="H_START_DATE"/>
+        <result property="end_date" column="H_END_DATE"/>
+        <result property="position" column="H_POSITION"/>
+        <result property="notes" column="H_NOTES"/>
+    </resultMap>
+
+    <select id="getMyCareerInfo" parameterType="long" resultMap="careerDtoResultMap">
+        SELECT
+            U.user_no AS U_USER_NO,
+            U.hobby AS U_HOBBY,
+            U.notes AS U_NOTES
+        FROM
+            tb_userinfo U
+        WHERE
+            U.user_no = #{user_no}
+    </select>
+    <select id="getEducationListByUserNo" parameterType="long" resultMap="eduInfoResultMap">
+        SELECT
+            edu_no AS E_EDU_NO,
+            user_no AS E_USER_NO,
+            school_name AS E_SCHOOL_NAME,
+            enroll_date AS E_ENROLL_DATE,
+            grad_date AS E_GRAD_DATE,
+            edu_status AS E_EDU_STATUS,
+            major AS E_MAJOR,
+            sub_major AS E_SUB_MAJOR,
+            gpa AS E_GPA,
+            notes AS E_NOTES
+        FROM
+            tb_edu_info
+        WHERE user_no = #{user_no}
+    </select>
+    <select id="getLanguageListByUserNo" parameterType="long" resultMap="languageSkillResultMap">
+        SELECT
+            user_no AS L_USER_NO,
+            language AS L_LANGUAGE,
+            level AS L_LEVEL
+        FROM
+            tb_language_skill
+        WHERE user_no = #{user_no}
+    </select>
+    <select id="getSkillListByUserNo" parameterType="long" resultMap="skillResultMap">
+        SELECT
+            S.user_no AS S_USER_NO,
+            S.skill_code AS S_SKILL_CODE,
+            S.group_code AS S_GROUP_CODE,
+            S.exp_level AS S_EXP_LEVEL,
+            S.skill_tool AS S_SKILL_TOOL
+        FROM
+            tb_skill S
+        WHERE S.user_no = #{user_no}
+    </select>
+    <select id="getCertificateListByUserNo" parameterType="long" resultMap="certificateResultMap">
+        SELECT
+            certification_no AS C_CERTIFICATION_NO,
+            user_no AS C_USER_NO,
+            certificate_no AS C_CERTIFICATE_NO,
+            certificate_name AS C_CERTIFICATE_NAME,
+            issuing_org AS C_ISSUING_ORG,
+            acquired_date AS C_ACQUIRED_DATE,
+            notes AS C_NOTES
+        FROM
+            tb_certification
+        WHERE user_no = #{user_no}
+    </select>
+    <select id="getCareerHistoryListByUserNo" parameterType="long" resultMap="careerHistoryResultMap">
+        SELECT
+            career_no AS H_CAREER_NO,
+            user_no AS H_USER_NO,
+            company_name AS H_COMPANY_NAME,
+            start_date AS H_START_DATE,
+            end_date AS H_END_DATE,
+            position AS H_POSITION,
+            notes AS H_NOTES
+        FROM
+            tb_career_history
+        WHERE user_no = #{user_no}
+    </select>
+
+    <!--  회원 정보  -->
+    <select id="selectUserInfo" parameterType="map" resultType="com.happyjob.jobfolio.vo.join.UserVO">
+        SELECT
+            user_no,
+            login_id,
+            user_type,
+            user_name,
+            password,
+            birthday,
+            sex,
+            hp,
+            DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date,
+            DATE_FORMAT(withdrawal_date, '%Y-%m-%d %H:%i:%s') AS withdrawal_date,
+            status_yn,
+            expire_days,
+            address,
+            hobby,
+            notes
+        FROM tb_userinfo
+        WHERE user_no = #{user_no}
+          AND status_yn = 'N'
+          AND withdrawal_date IS NULL
+    </select>
+
+    <!-- 회원정보 수정 -->
+    <update id="updateByUserId" parameterType="map">
+        UPDATE tb_userinfo
+        SET
+        user_name = #{user_name},
+        login_id = #{login_id},
+        hp = #{hp}
+        <if test="#{address} != null">, address = #{address}</if>
+        WHERE user_no = #{user_no} and status_yn = 'N'
+    </update>
+
+    <!-- 회원 탈퇴 -->
+    <update id="deleteByUserId" parameterType="map">
+        UPDATE tb_userinfo
+        SET
+        status_yn = 'Y'
+        WHERE user_no = #{user_no} and status_yn = 'N'
+    </update>
+
+    <!--  학력 사항  -->
+    <insert id="insertEducation" parameterType="com.happyjob.jobfolio.vo.mypage.EduInfoVO" keyProperty="edu_no" useGeneratedKeys="true">
+        INSERT INTO
+            tb_edu_info(
+                user_no,
+                school_name,
+                enroll_date,
+                grad_date,
+                edu_status,
+                major,
+                sub_major,
+                gpa,
+                notes
+                )
+            VALUES(
+                #{user_no},
+                #{school_name},
+                #{enroll_date},
+                #{grad_date},
+                #{edu_status},
+                #{major},
+                #{sub_major},
+                #{gpa},
+                #{notes})
+    </insert>
+    <delete id="deleteEducation">
+        DELETE FROM tb_edu_info WHERE user_no = #{user_no} AND edu_no = #{edu_no}
+    </delete>
+    <update id="updateEducation" parameterType="com.happyjob.jobfolio.vo.mypage.EduInfoVO">
+        UPDATE tb_edu_info
+        SET user_no = #{user_no},
+            school_name = #{school_name},
+            enroll_date = #{enroll_date},
+                grad_date = #{grad_date},
+                edu_status = #{edu_status},
+                major = #{major},
+                sub_major = #{sub_major},
+                gpa = #{gpa},
+                notes = #{notes}
+        WHERE user_no = #{user_no} AND edu_no = #{edu_no}
+    </update>
+
+    <!--  자격증  -->
+    <insert id="insertCertification" parameterType="com.happyjob.jobfolio.vo.mypage.CertificateVO" keyProperty="certification_no" useGeneratedKeys="true">
+        INSERT INTO tb_certification(
+            user_no,
+            certificate_no,
+            certificate_name,
+            issuing_org,
+            acquired_date,
+            notes
+        )
+        VALUES (#{user_no},
+                #{certificate_no},
+                #{certificate_name},
+                #{issuing_org},
+                #{acquired_date},
+                #{notes}
+               )
+    </insert>
+    <delete id="deleteCertification">
+        DELETE FROM tb_certification
+        WHERE user_no = #{user_no} AND certification_no = #{certification_no}
+    </delete>
+    <update id="updateCertification" parameterType="com.happyjob.jobfolio.vo.mypage.CertificateVO">
+        UPDATE tb_certification
+        SET user_no = #{user_no},
+            certificate_no=  #{certificate_no},
+            certificate_name=  #{certificate_name},
+            issuing_org= #{issuing_org},
+            acquired_date=  #{acquired_date},
+            notes= #{notes}
+        WHERE user_no = #{user_no} AND certification_no = #{certification_no}
+    </update>
+
+    <!-- 언어 -->
+    <insert id="insertLanguageSkill" parameterType="com.happyjob.jobfolio.vo.mypage.LanguageSkillVO">
+        INSERT INTO tb_language_skill(
+            user_no,
+            language,
+            level
+        )
+        VALUES (
+                #{user_no},
+                #{language},
+                #{level}
+               )
+    </insert>
+    <delete id="deleteLanguageSkill">
+        DELETE FROM tb_language_skill
+        WHERE user_no = #{user_no} AND language = #{language}
+    </delete>
+    <update id="updateLanguageSkill" parameterType="com.happyjob.jobfolio.vo.mypage.LanguageSkillVO">
+        UPDATE tb_language_skill
+        SET user_no = #{user_no},
+            language = #{language},
+            level = #{level}
+        WHERE user_no = #{user_no} AND language = #{language}
+    </update>
+
+    <!-- 경력 -->
+    <insert id="insertCareerHistory" parameterType="com.happyjob.jobfolio.vo.mypage.CareerHistoryVO" keyProperty="career_no" useGeneratedKeys="true">
+        INSERT INTO tb_career_history(
+            user_no,
+            company_name,
+            start_date,
+            end_date,
+            position,
+            notes
+        )
+        VALUE (
+            #{user_no},
+            #{company_name},
+            #{start_date},
+            #{end_date},
+            #{position},
+            #{notes}
+            )
+    </insert>
+    <delete id="deleteCareerHistory">
+        DELETE FROM tb_career_history
+        WHERE career_no = #{career_no} AND user_no = #{user_no}
+    </delete>
+    <update id="updateCareerHistory" parameterType="com.happyjob.jobfolio.vo.mypage.CareerHistoryVO">
+        UPDATE tb_career_history
+        SET  user_no = #{user_no},
+            career_no = #{career_no},
+            company_name = #{company_name},
+            start_date =#{start_date},
+            end_date= #{end_date},
+            position =#{position},
+            notes = #{notes}
+        WHERE career_no = #{career_no} AND user_no = #{user_no}
+    </update>
+
+
+    <!--  스킬 조회 -->
+    <resultMap id="commSkillResultMap" type="com.happyjob.jobfolio.vo.mypage.CommSkillDto">
+        <result property="group_code" column="GROUP_CODE"/>
+        <result property="detail_name" column="DETAIL_NAME"/>
+        <result property="detail_code" column="DETAIL_CODE"/>
+        <result property="group_name" column="GROUP_NAME"/>
+    </resultMap>
+    <select id="selectAllCommonSkills" resultMap="commSkillResultMap">
+        SELECT tdc.group_code as GROUP_CODE,
+               tgc.group_name as GROUP_NAME,
+               tdc.detail_code as DETAIL_CODE,
+               tdc.detail_name as DETAIL_NAME
+        FROM tb_detail_code tdc
+        JOIN tb_group_code tgc
+             ON tdc.group_code = tgc.group_code
+
+
+        WHERE tgc.category_code IN ('INDUSTRY') ORDER BY tdc.detail_name;
+
+    </select>
+
+    <insert id="insertSkill" parameterType="com.happyjob.jobfolio.vo.mypage.SkillVO">
+        INSERT INTO tb_skill(
+            user_no,
+            skill_code,
+            group_code,
+            exp_level,
+            skill_tool
+            )
+        VALUES(
+               #{user_no},
+               #{skill_code},
+               #{group_code},
+               #{exp_level},
+               #{skill_tool}
+              )
+    </insert>
+    <delete id="deleteSkill">
+    DELETE FROM tb_skill
+    WHERE user_no = #{user_no} AND skill_code = #{skill_code} AND group_code = #{group_code}
+    </delete>
+    <update id="updateSkill" parameterType="com.happyjob.jobfolio.vo.mypage.SkillVO">
+        UPDATE tb_skill
+        SET exp_level = #{exp_level},
+            skill_tool = #{skill_tool}
+        WHERE user_no = #{user_no} AND skill_code = #{skill_code} AND group_code = #{group_code}
+    </update>
+
+
+    <!--  결재 내역 조회  -->
+    <select id="selectPayHistory" resultType="com.happyjob.jobfolio.vo.mypage.PayHisDto">
+        SELECT
+            order_id,
+            user_no,
+            product_no,
+            order_name,
+            amount,
+            paid_date,
+            pay_status
+        FROM tb_payment_his
+        WHERE user_no = #{user_no}
+        <if test="search != null and search != ''">
+            AND (order_name LIKE CONCAT('%', #{search}, '%') OR order_id LIKE CONCAT('%', #{search}, '%'))
+        </if>
+        <if test="status == 2 or status == 3">
+            AND pay_status = #{status}
+        </if>
+        ORDER BY  paid_date DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+    
+    <select id="selectTotalPayCount" resultType="int">
+        SELECT count(*)
+        FROM tb_payment_his
+        WHERE user_no = #{user_no}
+        <if test="search != null and search != ''">
+            AND (CAST(paid_date AS CHAR)
+                    LIKE CONCAT('%', #{search}, '%') OR order_name LIKE CONCAT('%', #{search}, '%') )
+        </if>
+        <if test="status == 2 or status == 3">
+            AND pay_status = #{status}
+        </if>
+    </select>
+</mapper>
