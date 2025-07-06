@@ -1,0 +1,117 @@
+.resumeDetail {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: wrap;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+}
+
+.resumeDetail .resumeItem {
+    position: relative;
+    display: flex;
+    width: 430px;
+    height: 150px;
+    border: 1px solid #cacaca;
+    border-radius: 15px;
+    margin-bottom: 40px;
+}
+
+.resumeDetail .resumeItemCon {
+    position: relative;
+    padding: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    align-self: center;
+}
+
+.resumeDetail .community-notice-pagination {
+    margin-bottom: 100px;
+    border-top: none;
+    margin: auto;
+    width: 100%;
+}
+
+.bttnRow {
+    flex-shrink: 0; /* 추가 */
+}
+
+.bttnRow .resumeBtn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-left: 5px;
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.bttnRow .resumeBtn:hover {
+    background: #bbdefb;
+}
+
+.resumeDetail .resumeItemHeader {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px; /* 추가 */
+}
+
+.resumeDetail .resumeItemCon h3 {
+    color: #5f4dff;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px; /* 추가 */
+}
+
+.resumeDetail .resumeItemCon h3:hover {
+    cursor: pointer;
+}
+
+.resumeDetail .resumeItemDetail {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.resumeDetail .likeIcon {
+    color: #818191;
+}
+
+.resumeDetail .likeIcon:hover {
+    cursor: pointer;
+}
+
+.resumeItemDetail p {
+    margin: 0;
+}
+
+.resumeDetail p.resumeItemJob {
+    color: #717171;
+}
+
+.resumeDetail p.resumeItemDate {
+    color: #8b8b8b;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+.emptyResumeList {
+    color: #6c757d;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    font-weight: 500;
+}

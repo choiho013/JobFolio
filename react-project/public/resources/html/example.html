@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이력서</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap");
+      body {
+        background: #f4f6fb;
+        font-family: "Montserrat", sans-serif;
+        margin: 0;
+        padding: 0;
+        /* overflow: hidden; */
+      }
+      .resume-container {
+        max-width: 800px;
+        /* height: 100vh; */
+        background: #fff;
+        aspect-ratio: 9 / 9;
+
+        margin: auto;
+        margin-top: 5px;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(60, 60, 100, 0.13);
+        padding: 40px 50px 50px 50px;
+      }
+      .header {
+        display: flex;
+        align-items: center;
+        border-bottom: 2px solid #e0e5ee;
+        padding-bottom: 24px;
+        margin-bottom: 32px;
+      }
+      .profile-img {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #d8e6ff;
+        margin-right: 32px;
+      }
+      .name-title {
+        flex: 1;
+      }
+      .name-title h1 {
+        margin: 0;
+        font-size: 2.3rem;
+        font-weight: 700;
+        color: #1a237e;
+      }
+      .name-title h2 {
+        margin: 6px 0 0 0;
+        font-size: 1.2rem;
+        color: #4e5d78;
+        font-weight: 500;
+      }
+      .contact {
+        margin-top: 14px;
+        color: #7a869a;
+        font-size: 1rem;
+      }
+      .section {
+        margin-bottom: 32px;
+      }
+      .section-title {
+        font-size: 1.15rem;
+        color: #1976d2;
+        font-weight: 700;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+        border-left: 4px solid #1976d2;
+        padding-left: 10px;
+      }
+      .section-content {
+        color: #2d3748;
+        font-size: 1.05rem;
+      }
+      ul {
+        padding-left: 20px;
+        margin: 0;
+      }
+      li {
+        margin-bottom: 7px;
+      }
+      .skills-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 10px;
+      }
+      .skill-chip {
+        background: #e3f2fd;
+        color: #1976d2;
+        border-radius: 16px;
+        padding: 6px 16px;
+        font-size: 0.98rem;
+        font-weight: 500;
+        margin-bottom: 6px;
+        display: inline-block;
+      }
+      @media (max-width: 600px) {
+        .resume-container {
+          padding: 20px 8px;
+        }
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .profile-img {
+          margin-bottom: 16px;
+          margin-right: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="resume-container">
+      <div class="header">
+        <img
+          src="https://randomuser.me/api/portraits/men/32.jpg"
+          alt="프로필 사진"
+          class="profile-img"
+        />
+        <div class="name-title">
+          <h1 class="userName">홍길동</h1>
+          <h2 class="desired_position">웹 프론트엔드 개발자</h2>
+          <div class="contact">
+            <p>📞 <span class="hp">010-1234-5678</span></p>
+            <p>✉️ <span class="email">honggildong@email.com</span></p>
+            <p>📍 <span class="address">서울특별시 강남구</span></p>
+            <p><span class="link">github.com/hyunmyoung</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">프로필</div>
+        <div class="section-content">
+          <span class="coverLetter"
+            >사용자 경험을 최우선으로 생각하는 3년차 웹 프론트엔드 개발자입니다.
+            React, Vue 등 최신 프레임워크에 능숙하며, 협업과 커뮤니케이션에
+            자신이 있습니다.
+          </span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">경력</div>
+        <div class="section-content career">
+          <ul>
+            <li>
+              <strong
+                ><span class="company_name">ABC테크</span> (<span
+                  class="career_start_date"
+                  >2022.01</span
+                >
+                ~ <span class="career_end_date"></span>)</strong
+              ><br />
+              - <span class="position">프론트 개발자</span><br />
+              <span class="career_notes"
+                >- 사내 ERP 시스템 프론트엔드 개발 및 유지보수<br />
+                - React, TypeScript 기반 SPA 개발</span
+              >
+            </li>
+            <li>
+              <strong
+                ><span class="company_name">XYZ스타트업</span> (<span
+                  class="career_start_date"
+                  >2020.03</span
+                >
+                ~ <span class="career_end_date">2021.12</span>)</strong
+              ><br />
+              - <span class="position">프로젝트 매니저</span><br />
+              -
+              <span class="career_notes">
+                쇼핑몰 프론트엔드 리뉴얼 프로젝트 참여 Vue.js, SCSS 활용 UI/UX
+                개선</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">학력</div>
+        <div class="section-content education">
+          <ul>
+            <li>
+              <strong
+                ><span class="school_name">서울대학교</span>
+                <span class="major">컴퓨터공학과</span></strong
+              ><br />
+              <span class="edu_status">학사</span> (<span class="enroll_date"
+                >2016.03</span
+              >
+              ~ <span class="grad_date">2020.02</span>)<br />
+              <span class="sub_major"></span><br />
+              <span class="gpa"></span><br />
+              <span class="notes"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">기술 스택</div>
+        <div class="skills-list">
+          <div class="skill-chip">
+            <span class="group_code"></span>
+            <span class="skill_code">HTML5</span><span class="exp_level"></span
+            ><span class="skill_tool"></span>
+          </div>
+          <div class="skill-chip">
+            <span class="group_code"></span>
+            <span class="skill_code">CSS3</span><span class="exp_level"></span
+            ><span class="skill_tool"></span>
+          </div>
+          <div class="skill-chip">
+            <span class="group_code"></span>
+            <span class="skill_code">JavaScript</span
+            ><span class="exp_level"></span><span class="skill_tool"></span>
+          </div>
+          <div class="skill-chip">
+            <span class="group_code"></span>
+            <span class="skill_code">React</span><span class="exp_level"></span
+            ><span class="skill_tool"></span>
+          </div>
+          <div class="skill-chip">
+            <span class="group_code"></span>
+            <span class="skill_code">Vue.js</span><span class="exp_level"></span
+            ><span class="skill_tool"></span>
+          </div>
+          <div class="skill-chip">
+            <span class="group_code"></span>
+            <span class="skill_code">TypeScript</span
+            ><span class="exp_level"></span><span class="skill_tool"></span>
+          </div>
+          <div class="skill-chip">
+            <span class="group_code"></span>
+            <span class="skill_code">Git</span><span class="exp_level"></span
+            ><span class="skill_tool"></span>
+          </div>
+          <div class="skill-chip">
+            <span class="group_code"></span>
+            <span class="skill_code">Figma</span><span class="exp_level"></span
+            ><span class="skill_tool"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">자격증</div>
+        <div class="section-content certification">
+          -<span class="certificate_name">정보처리기사</span> (<span
+            class="acquired_date"
+            >2020</span
+          >)
+          <span class="certificate_no"></span>
+          <span class="issuing_org"></span>
+          <span class="cert_notes"></span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">언어 능력</div>
+        <div class="section-content lang">
+          - <span class="language">영어</span> <span class="level"></span>
+          <br />
+          - <span class="language">중국어</span><span class="level"></span>
+        </div>
+      </div>
+    </div>
+  <script>
+      function sendIframeHeight() {
+        // 'container' 요소의 높이를 측정하는 것이 가장 정확합니다.
+        // body의 margin과 padding을 0으로 설정했기 때문에 container의 높이가 곧 콘텐츠의 실제 높이가 됩니다.
+        const containerElement = document.querySelector('.container');
+        let height = 0;
+        if (containerElement) {
+            height = containerElement.offsetHeight;
+        } else {
+            // container가 없다면 fallback으로 body 높이를 사용합니다.
+            height = Math.max(
+                document.body.scrollHeight,
+                document.body.offsetHeight,
+                document.documentElement.clientHeight,
+                document.documentElement.scrollHeight,
+                document.documentElement.offsetHeight
+            );
+        }
+
+        // 부모 윈도우로 메시지 전송
+        if (window.parent) {
+          window.parent.postMessage({
+            type: 'iframeHeight',
+            height: height + 'px', // 단위를 붙여서 보냅니다.
+            tempNo: new URLSearchParams(window.location.search).get('tempNo') // 템플릿 번호도 함께 보냅니다.
+          }, '*'); // 🚨 중요: 실제 배포 시에는 '*' 대신 부모 컴포넌트의 도메인을 명시하세요!
+        }
+      }
+
+      // 1. DOMContentLoaded: HTML 문서가 완전히 로드되고 파싱되었을 때 (가장 빠름)
+      document.addEventListener('DOMContentLoaded', sendIframeHeight);
+      // 2. load: 모든 리소스(이미지 등)까지 완전히 로드되었을 때 (더 정확할 수 있음)
+      window.addEventListener('load', sendIframeHeight);
+      // 3. 리사이즈 시에도 높이 다시 측정하여 부모에 알림 (반응형 대응)
+      window.addEventListener('resize', sendIframeHeight);
+
+      // 4. 추가: 이미지 등 동적으로 로드되는 요소가 있다면, 해당 요소의 로드가 완료된 후 다시 높이를 측정합니다.
+      // 현재 이력서 템플릿에는 외부 이미지가 있으므로 이 부분이 특히 중요합니다.
+      const images = document.querySelectorAll('img');
+      if (images.length > 0) {
+        let loadedCount = 0;
+        images.forEach(img => {
+          if (img.complete) { // 이미 로드 완료된 이미지
+            loadedCount++;
+          } else { // 아직 로드되지 않은 이미지
+            img.addEventListener('load', () => {
+              loadedCount++;
+              if (loadedCount === images.length) {
+                sendIframeHeight(); // 모든 이미지가 로드되면 높이 다시 전송
+              }
+            });
+          }
+        });
+        if (loadedCount === images.length) { // 이미지가 없거나 모두 로드된 경우에도 초기 높이 전송
+          sendIframeHeight();
+        }
+      }
+    </script>
+    </body>
+</html>

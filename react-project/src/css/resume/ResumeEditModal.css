@@ -1,0 +1,341 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  min-width: 1000px;
+  min-height: 900px;
+  position: relative;
+  overflow: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content iframe {
+  width: 100%;
+  min-height: 300px;
+  max-height: 1200px;
+  border: 1px solid #ddd;
+  display: block;
+}
+
+.modal-content label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+.modal-content label > div:first-child {
+  width: 110px;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-content label > div:last-child {
+  flex: 1;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="email"] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border 0.2s;
+}
+
+.modal-content input[type="text"]:focus,
+.modal-content input[type="email"]:focus {
+  border: 1.5px solid #007bff;
+  outline: none;
+  background: #f8faff;
+}
+
+.checkbox_list {
+  display: flex;
+  margin-left: 10px;
+}
+
+.checkbox_list input[type="radio"] {
+  margin-left: 25px;
+}
+
+.checkbox_list .toggleInput {
+  display: flex;
+}
+
+.modal-content .profileInput {
+  width: 100%;
+  height: 200px;
+}
+
+.modal-content .htmlContent {
+  width: 100%;
+  height: 1500px;
+  border: 1px solid #ddd;
+}
+
+.modal-content .buttonRow {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.modal-content .secondaryBtn {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.modal-content .secondaryBtn:hover {
+  background: #bbdefb;
+}
+
+.toggleInput {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.toggleInput label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 0;
+  font-size: 1rem;
+  gap: 16px;
+  width: 110px;
+  min-width: 110px;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-content .addrBtn {
+  background: #e3f2fd;
+  color: #1976d2;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.modal-content .addBtn:hover {
+  background: #bbdefb;
+  color: #0d47a1;
+}
+
+.toggleInput .deleteCareerBtn {
+  background: #ffebee;
+  color: #d32f2f;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 8px;
+  align-self: flex-end;
+}
+
+.toggleInput .deleteCareerBtn:hover {
+  background: #ffcdd2;
+  color: #b71c1c;
+}
+
+.modal-content .aiSection {
+  background: #f4f6fb;
+  border-radius: 12px;
+  padding: 24px 20px;
+  margin-top: 50px;
+}
+
+.modal-content .aiTitle {
+  font-size: 1.2rem;
+  color: #1976d2;
+  margin-bottom: 10px;
+}
+
+.modal-content .aiInput,
+.coverLetterTextarea {
+  font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+  width: 100%;
+  min-height: 200px;
+  border: 1.2px solid #e0e5ee;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  color: #222;
+  line-height: 1.6;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+  resize: vertical;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.modal-content .aiInput:focus {
+  border: 2px solid #4285f4;
+  outline: none;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.loading-content {
+  text-align: center;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.publication_title {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.publication_ratio_area {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.custom-radio {
+  display: none;
+}
+
+.radio-label {
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  user-select: none;
+  transition: color 0.2s;
+}
+
+.radio-label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  background: #fff;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.custom-radio:checked + .radio-label:after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background: #007bff;
+  border-radius: 50%;
+}
+
+.radio-label:hover {
+  color: #007bff;
+}
+
+.custom-radio:focus + .radio-label:before {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
+}
+
+.toggleInput select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border 0.2s;
+  background: #fff;
+  color: #222;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,<svg width='16' height='16' viewBox='0 0 16 16' fill='gray' xmlns='http://www.w3.org/2000/svg'><path d='M4 6l4 4 4-4' stroke='%23999' stroke-width='2' fill='none' fill-rule='evenodd'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
+}
+
+.modal-content select:focus,
+.toggleInput select:focus {
+  border: 1.5px solid #007bff;
+  outline: none;
+  background: #f8faff;
+}
+
+.toggleInput .skill_dropdown {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.career_date_section,
+.edu_date_section {
+  display: flex;
+}
+
+.current-job-checkbox,
+.current-edu-checkbox {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.current-job-checkbox p,
+.current-edu-checkbox p {
+  margin: 0 0 0 5px;
+  font-size: 1rem;
+}
+
+.required-mark {
+  color: #e53935;
+  font-weight: bold;
+  font-size: 0.95em;
+}
